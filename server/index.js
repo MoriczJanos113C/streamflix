@@ -6,6 +6,8 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 
@@ -46,6 +48,70 @@ app.get("/movies/:film_id", (req, res) => {
             } else {
                 res.send({
                     message: "Not found any movie",
+                });
+            }
+        }
+    );
+});
+
+//regisztrálás
+app.post("/register", async (req, res) => {
+    const felhasznalonev = req.body.felhasznalonev;
+    const email = req.body.email;
+    const jelszo = req.body.jelszo;
+    const hashedPass = bcrypt.hashSync(jelszo, bcrypt.genSaltSync(10));
+
+    db.query(
+        "SELECT * FROM felhasznalok WHERE felhasznalonev = ? OR email = ?",
+        [felhasznalonev, email],
+        (err, result) => {
+            if (err) throw err;
+
+            if (result.length === 0) {
+                db.query(
+                    "INSERT INTO felhasznalok (felhasznalonev, email, jelszo) VALUES (?, ?, ?)",
+                    [felhasznalonev, email, hashedPass],
+                    (err, Rresult) => {
+                        if (err) throw err;
+                        res.status(201).send();
+                    }
+                );
+            } else {
+                res.send({
+                    message: "Felhasználónév vagy email foglalt",
+                });
+            }
+        }
+    );
+});
+
+//bejelentkezés
+app.post("/login", (req, res) => {
+    const { felhasznalonev, jelszo } = req.body;
+
+    db.query(
+        "SELECT * FROM felhasznalok WHERE felhasznalonev = ?",
+        [felhasznalonev],
+        (err, result) => {
+            if (err) throw err;
+
+            if (result.length > 0) {
+                const token = jwt.sign(felhasznalonev, "secret-password");
+                if (bcrypt.compareSync(jelszo, result[0].jelszo)) {
+                    res.send(
+                        JSON.stringify({
+                            token: token,
+                            user: result[0],
+                        })
+                    );
+                } else {
+                    res.send({
+                        message: "Rossz jelszó",
+                    });
+                }
+            } else {
+                res.send({
+                    message: "Rossz felhasználónév",
                 });
             }
         }
