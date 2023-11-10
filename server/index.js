@@ -118,6 +118,31 @@ app.post("/login", (req, res) => {
     );
 });
 
+//film vélemények
+app.post("/velemenyek", async (req, res) => {
+    const felh_id = req.body.felh_id;
+    const film_id = req.body.product_id;
+    const velemenyLeirasa = req.body.velemenyLeirasa;
+    const ertekeles = req.body.ertekeles;
+    const felhasznaloNeve = req.body.felhasznaloNeve;
+    const velemenyDatuma = req.body.velemenyDatuma;
+
+    db.query(
+        "INSERT INTO velemenyek (felh_id, film_id, velemenyLeirasa, ertekeles, felhasznaloNeve, velemenyDatuma) VALUES (?, ?, ?, ?, ?, ?)",
+        [user_id, product_id, description, rating, username],
+        (err, result) => {
+            if (err) throw err;
+            if (result) {
+                res.send({ message: "Értékelés hozzáadva" });
+            } else {
+                res.send({
+                    message: "Értékelés nem lett hozzáadva",
+                });
+            }
+        }
+    );
+});
+
 app.listen(8080, () => {
     console.log("running server");
 });
