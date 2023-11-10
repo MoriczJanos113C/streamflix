@@ -1,0 +1,24 @@
+/* Header.css */
+
+.navbar {
+    background: none; /* Töröld a háttérszínt a navbar-ról */
+}
+
+.home,
+.link,
+.logOut {
+    color: grey;
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid yellow;
+    border-radius: 5px;
+    transition: color 0.3s, background-color 0.3s; /* Átmeneti effektusok */
+}
+
+.home:hover,
+.link:hover,
+.logOut:hover {
+    color: white;
+    background-color: black;
+}

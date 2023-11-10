@@ -7,20 +7,35 @@ export function MoviesPage() {
 
     useEffect(() => {
         const fetchMovies = async () => {
-                const response = await axios.get("http://localhost:8080/movies");
-                setMovies(response.data);
+            const response = await axios.get("http://localhost:8080/movies");
+            setMovies(response.data);
         };
         fetchMovies();
     }, []);
 
+    const movieCardStyle = {
+        background: "darkgrey",
+        color: "yellow",
+        padding: "10px",
+        margin: "10px",
+        borderRadius: "5px",
+        width: "200px", // Állítsd be a kívánt kártya szélességét
+        display: "inline-block", // A kártyák egymás mellett helyezkednek el
+    };
+
+    const containerStyle = {
+        background: "black", 
+        padding: "20px",
+        minHeight: "100vh", // Teljes képernyő magasság
+    };
+
     return (
-        <div className="">
+        <div style={containerStyle}>
             {movies.map((m) => (
-                
-                <div className="" key={m.film_id}>
+                <div style={movieCardStyle} key={m.film_id}>
                     <h1>{m.film_neve}</h1>
                     <Link to={`/movies/${m.film_id}`}>
-                            Leírás
+                        Leírás
                     </Link>
                 </div>
                 
