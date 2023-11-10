@@ -160,6 +160,28 @@ app.get("/velemenyek/:id", (req, res) => {
     );
 });
 
+//film vélemények
+app.post("/kedvencek", async (req, res) => {
+    const felh_id = req.body.felh_id;
+    const film_id = req.body.film_id;
+
+    db.query(
+        "INSERT INTO kedvencek (felh_id, film_id) VALUES (?, ?)",
+        [felh_id, film_id],
+        (err, result) => {
+            if (err) throw err;
+            if (result) {
+                res.send({ message: "Kedvenc hozzáadva" });
+            } else {
+                res.send({
+                    message: "Kedvenc nem lett hozzáadva",
+                });
+            }
+        }
+    );
+});
+
+
 
 app.listen(8080, () => {
     console.log("running server");

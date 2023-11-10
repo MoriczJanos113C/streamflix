@@ -7,6 +7,7 @@ import {
     Button,
     Form
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../App";
 import { format } from 'date-fns';
@@ -17,6 +18,8 @@ const DEFAULT_FORM_OBJECT = {
 };
 
 export function MoviePage() {
+
+    const navigate = useNavigate();
 
     const [movie, setMovie] = useState([]);
     const { id: movieID } = useParams();
@@ -113,19 +116,44 @@ export function MoviePage() {
         }
     };
 
-    //check that the validation is correct
+
     useEffect(() => {
         checkValid();
     }, [form]);
+
+    const addFavourites = async () => {
+        const felh_id = user.id; // Felhasználó azonosítója, például a bejelentkezett felhasználóé
+        const movie_id = movie.movieID;
+      
+        try {
+          // Küldj POST kérést az adatbázisba
+          const response = await axios.post('/kedvencek', { felh_id, movie_id });
+      
+          if (response.data.message === 'Sikeres hozzáadás') {
+            console.log('A film hozzá lett adva a kedvencekhez.');
+      
+            // Navigálás a "/kedvencek"-re
+            window.location.href = '/kedvencek';
+          } else {
+            console.log('Hiba a kedvencekhez adás során.');
+          }
+        } catch (error) {
+          console.error('Hiba a kérés során:', error);
+        }
+      };
 
     return (
         <div className="">
             {movie.map((m) => (
                 <div className="" key={m.film_id}>
                     <h1>{m.film_neve}</h1>
-                    
+                    <Button onSubmit={addFavourites}>Kedvencekhez adás</Button>
                 </div>
             ))}
+            <br></br><br></br><br></br>
+    <div className="">
+                <h1>vélemények</h1>
+    </div>    
 <div className="">
 <Container>
                 {isLoggedIn && (
@@ -158,6 +186,19 @@ export function MoviePage() {
             </Container>
     
 </div>
+
+<div className="">
+            {reviewByProduct.map((pR) => (
+                        <div key={pR.id}>
+                           
+
+                            <h1>{pR.felhasznaloNeve}</h1>
+                            <h2>{pR.velemenyErtekeles}</h2>
+                            <p>{pR.velemenyLeirasa}</p>
+                            <p>{pR.velemenyDatuma}</p>
+                        </div>
+                    ))}
+            </div>
 
         </div>
         

@@ -5,9 +5,10 @@
 }
 
 .home,
+.favourites,
 .link,
 .logOut {
-    color: grey;
+    color: yellow;
     text-decoration: none;
     padding: 10px;
     margin: 5px;
@@ -19,6 +20,6 @@
 .home:hover,
 .link:hover,
 .logOut:hover {
-    color: white;
+    color: yellow;
     background-color: black;
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Nov 10. 15:58
+-- Létrehozás ideje: 2023. Nov 10. 18:02
 -- Kiszolgáló verziója: 10.4.27-MariaDB
 -- PHP verzió: 8.2.0
 
@@ -45,7 +45,8 @@ INSERT INTO `felhasznalok` (`felh_id`, `felhasznalonev`, `email`, `jelszo`) VALU
 (2, 'teszt', 'asd@g.com', '$2a$10$F21yEFaWasgMwngnUllHpu6Qg7jwSLwwOwt0g75qw6gaAlkvzp30.'),
 (3, 'eteszt', '1@g.com', '$2a$10$XxDbYLdnX1FsgnzDz9JlJuTUlzMWRvl1PRrd6QcaKIoNYTQQJmE4G'),
 (4, 'felhazsnalo', 'emai@emai.com', '$2a$10$hMILgZnqneiI4l4xUU9H0O02XWlt5z09AxwA6/LyrODboeUvfTcJC'),
-(5, 'asd12', 'asd@gm.com', '$2a$10$PNqiushcni0sdi3zTGLaHuLTDOymKA5Aq/dmhW8.W4Qajk5QfchNi');
+(5, 'asd12', 'asd@gm.com', '$2a$10$PNqiushcni0sdi3zTGLaHuLTDOymKA5Aq/dmhW8.W4Qajk5QfchNi'),
+(6, 'tesztelek', 'asd@gmail.com', '$2a$10$brLuiUgpBNtv7M5IPkc84OcrBiVwRb.4U4D/7mMGutO4G68ULB9Wu');
 
 -- --------------------------------------------------------
 
@@ -80,6 +81,13 @@ CREATE TABLE `kedvencek` (
   `film_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `kedvencek`
+--
+
+INSERT INTO `kedvencek` (`kedvenc_id`, `felh_id`, `film_id`) VALUES
+(1, 2, 12);
+
 -- --------------------------------------------------------
 
 --
@@ -88,12 +96,12 @@ CREATE TABLE `kedvencek` (
 
 CREATE TABLE `velemenyek` (
   `velemeny_id` int(11) NOT NULL,
-  `felh_id` int(11) NOT NULL,
-  `film_id` int(11) NOT NULL,
-  `velemenyLeirasa` varchar(240) NOT NULL,
-  `velemenyErtekeles` int(11) NOT NULL,
-  `felhasznaloNeve` varchar(250) NOT NULL,
-  `velemenyDatuma` date NOT NULL
+  `felh_id` int(11) DEFAULT NULL,
+  `film_id` int(11) DEFAULT NULL,
+  `velemenyLeirasa` text DEFAULT NULL,
+  `velemenyErtekeles` int(11) DEFAULT NULL,
+  `felhasznaloNeve` varchar(255) DEFAULT NULL,
+  `velemenyDatuma` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
@@ -102,8 +110,13 @@ CREATE TABLE `velemenyek` (
 
 INSERT INTO `velemenyek` (`velemeny_id`, `felh_id`, `film_id`, `velemenyLeirasa`, `velemenyErtekeles`, `felhasznaloNeve`, `velemenyDatuma`) VALUES
 (1, 2, 12, 'saddas', 5, 'asd', '0000-00-00'),
-(2, 5, 1, 'afasfs', 5, 'asd12', '0000-00-00'),
-(9, 5, 2, 'fsafs', 3, 'asd12', '2023-11-10');
+(3, 2, 12, 'saddas', 5, 'asd', '0000-00-00'),
+(4, 2, 12, 'saddas', 5, 'asd', '0000-00-00'),
+(5, 2, 12, 'saddas', 5, 'asd', '0000-00-00'),
+(6, 5, 1, 'fsafs', 5, 'asd12', '2023-11-10'),
+(7, 5, 1, 'dafasfsa', 3, 'asd12', '2023-11-10'),
+(8, 5, 1, 'fsafas', 5, 'asd12', '2023-11-10'),
+(9, 5, 1, 'fasfg', 3, 'asd12', '2023-11-10');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -133,7 +146,8 @@ ALTER TABLE `kedvencek`
 --
 ALTER TABLE `velemenyek`
   ADD PRIMARY KEY (`velemeny_id`),
-  ADD UNIQUE KEY `felh_id` (`felh_id`,`film_id`),
+  ADD KEY `felh_id` (`felh_id`),
+  ADD KEY `film_id` (`film_id`),
   ADD KEY `felh_id_2` (`felh_id`);
 
 --
@@ -144,7 +158,7 @@ ALTER TABLE `velemenyek`
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `felh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `felh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `filmek`
@@ -156,13 +170,13 @@ ALTER TABLE `filmek`
 -- AUTO_INCREMENT a táblához `kedvencek`
 --
 ALTER TABLE `kedvencek`
-  MODIFY `kedvenc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kedvenc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `velemenyek`
 --
 ALTER TABLE `velemenyek`
-  MODIFY `velemeny_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `velemeny_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

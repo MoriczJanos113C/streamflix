@@ -7,6 +7,8 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { useIsLoggedIn } from "./hooks/useIsLoggedIn";
 import { Header } from "./components/Header";
 import { LogoutPage } from "./pages/LogoutPage";
+import { Favourites } from "./pages/Favourites";
+
 
 export const AppRouter = () => {
     const isLoggedIn = useIsLoggedIn();
@@ -27,6 +29,9 @@ export const AppRouter = () => {
             {isLoggedIn && (
                     <Route path="/logout" element={<LogoutPage />} />
                 )}
+            {isLoggedIn && (
+                 <Route path="/favourites" element={<Favourites />} />
+                 )}
             </Routes>
         </Router>
     );

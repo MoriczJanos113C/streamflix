@@ -27,12 +27,18 @@ export function Header() {
                         </Link>
                     </>
                 )}
-
+                {isLoggedIn && (
+                    <Link className="favourites" to="/favourites">
+                        Kedvencek
+                    </Link>
+                )}
                 {isLoggedIn && (
                     <Link className="logOut" to="/logout">
                         Kijelentkezés
                     </Link>
                 )}
+
+                
             </Container>
         </Navbar>
     );
