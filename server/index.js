@@ -121,15 +121,15 @@ app.post("/login", (req, res) => {
 //film vélemények
 app.post("/velemenyek", async (req, res) => {
     const felh_id = req.body.felh_id;
-    const film_id = req.body.product_id;
+    const film_id = req.body.film_id;
     const velemenyLeirasa = req.body.velemenyLeirasa;
-    const ertekeles = req.body.ertekeles;
+    const velemenyErtekeles = req.body.velemenyErtekeles;
     const felhasznaloNeve = req.body.felhasznaloNeve;
     const velemenyDatuma = req.body.velemenyDatuma;
 
     db.query(
-        "INSERT INTO velemenyek (felh_id, film_id, velemenyLeirasa, ertekeles, felhasznaloNeve, velemenyDatuma) VALUES (?, ?, ?, ?, ?, ?)",
-        [user_id, product_id, description, rating, username],
+        "INSERT INTO velemenyek (felh_id, film_id, velemenyLeirasa, velemenyErtekeles, felhasznaloNeve, velemenyDatuma) VALUES (?, ?, ?, ?, ?, ?)",
+        [felh_id, film_id, velemenyLeirasa, velemenyErtekeles, felhasznaloNeve, velemenyDatuma],
         (err, result) => {
             if (err) throw err;
             if (result) {
@@ -142,6 +142,24 @@ app.post("/velemenyek", async (req, res) => {
         }
     );
 });
+
+//will give a review/reviews for a product
+app.get("/velemenyek/:id", (req, res) => {
+    db.query(
+        "SELECT * FROM velemenyek WHERE film_id = ?",
+        req.params.id,
+        (err, result) => {
+            if (result) {
+                res.send(result);
+            } else {
+                res.send({
+                    message: "Not found any review for this product",
+                });
+            }
+        }
+    );
+});
+
 
 app.listen(8080, () => {
     console.log("running server");

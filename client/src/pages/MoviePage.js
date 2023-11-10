@@ -1,10 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useIsLoggedIn } from "./hooks/useIsLoggedIn";
+import { useIsLoggedIn } from "../hooks/useIsLoggedIn";
+import {
+    Container,
+    Button,
+    Form
+} from "react-bootstrap";
+
+import { UserContext } from "../App";
+import { format } from 'date-fns';
 
 const DEFAULT_FORM_OBJECT = {
-    velemenyErtekelese: "",
+    velemenyErtekeles: "",
     velemenyLeirasa: "",
 };
 
@@ -14,6 +22,10 @@ export function MoviePage() {
     const { id: movieID } = useParams();
 
     const [form, setForm] = useState(DEFAULT_FORM_OBJECT);
+
+    const [reviews, setReviews] = useState([]);
+
+    const { user } = useContext(UserContext);
 
     const [reviewByProduct, setReviewByProduct] = useState([]);
     const { id: reviewID } = useParams();
@@ -36,7 +48,7 @@ export function MoviePage() {
     useEffect(() => {
         const fetchProduct = async () => {
             const { data: review } = await axios.get(
-                `http://localhost:8080/productReviews/${reviewID}`
+                `http://localhost:8080/velemenyek/${reviewID}`
             );
             setReviewByProduct(review);
         };
@@ -49,17 +61,19 @@ export function MoviePage() {
         if (
             ratingError === "" &&
             descriptionError === "" &&
-            form.rating.trim() != "" &&
-            form.description.trim() != ""
+            form.velemenyErtekeles.trim() != "" &&
+            form.velemenyLeirasa.trim() != ""
         ) {
             const { data: reviews } = await axios.post(
-                "http://localhost:8080/review",
+                "http://localhost:8080/velemenyek",
                 {
-                    product_id: productID,
-                    user_id: user.id,
-                    username: user.username,
-                    description: form.description,
-                    rating: form.rating,
+                    film_id: movieID,
+                    felh_id: user.felh_id,
+                    username: user.felhasznaloNeve,
+                    velemenyLeirasa: form.velemenyLeirasa,
+                    velemenyErtekeles: form.velemenyErtekeles,
+                    felhasznaloNeve: user.felhasznalonev,
+                    velemenyDatuma: format(new Date(), 'yyyy-MM-dd')
                 }
             );
             setReviews(reviews.id);
@@ -79,8 +93,8 @@ export function MoviePage() {
     //validation for the form
     const checkValid = () => {
         if (
-            !String(form.rating).match(/^[1-5]{1,1}$/) &&
-            form.rating.trim() != ""
+            !String(form.velemenyErtekeles).match(/^[1-5]{1,1}$/) &&
+            form.velemenyErtekeles.trim() != ""
         )
             setRatingError("Nem megfelelő értékelés");
         else {
@@ -88,10 +102,10 @@ export function MoviePage() {
         }
 
         if (
-            !String(form.description).match(
+            !String(form.velemenyLeirasa).match(
                 /^[a-zA-Z\u00C0-\u024F0-9 $()_+\-=\[\]{};':"\\|,.<>\/?!]{5,}$/
             ) &&
-            form.description.trim() != ""
+            form.velemenyLeirasa.trim() != ""
         )
             setDescriptionError("Nem megfelelő vélemény");
         else {
@@ -112,7 +126,7 @@ export function MoviePage() {
                     
                 </div>
             ))}
-
+<div className="">
 <Container>
                 {isLoggedIn && (
                     <Form onSubmit={addReview}>
@@ -120,8 +134,8 @@ export function MoviePage() {
                             <Form.Label>Értékelés</Form.Label>
                             <Form.Control
                                 className="input"
-                                onChange={updateFormValue("rating")}
-                                value={form.rating}
+                                onChange={updateFormValue("velemenyErtekeles")}
+                                value={form.velemenyErtekeles}
                                 placeholder="Értékelés pontszám szerint"
                             />
                         </Form.Group>
@@ -130,8 +144,8 @@ export function MoviePage() {
                             <Form.Label>Termék vélemény írás</Form.Label>
                             <Form.Control
                                 className="input"
-                                onChange={updateFormValue("description")}
-                                value={form.description}
+                                onChange={updateFormValue("velemenyLeirasa")}
+                                value={form.velemenyLeirasa}
                                 placeholder="Leírás"
                             />
                         </Form.Group>
@@ -142,6 +156,9 @@ export function MoviePage() {
                     </Form>
                 )}
             </Container>
+    
+</div>
+
         </div>
         
     )
