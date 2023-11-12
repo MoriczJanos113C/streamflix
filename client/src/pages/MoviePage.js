@@ -76,7 +76,7 @@ export function MoviePage() {
                     velemenyLeirasa: form.velemenyLeirasa,
                     velemenyErtekeles: form.velemenyErtekeles,
                     felhasznaloNeve: user.felhasznalonev,
-                    velemenyDatuma: format(new Date(), 'yyyy-MM-dd')
+                    velemenyDatuma: format(new Date(), 'dd-mm-yyyy')
                 }
             );
             setReviews(reviews.id);

@@ -10,8 +10,10 @@ export function Header() {
     return (
         <Navbar className="navbar navbar-dark" expand="lg" bg="dark" variant="dark">
             <Container >
-
-                <img src="images/img1.png" alt="" height="20px"/>
+<div style={{ overflow: 'hidden'}}>
+<img src="images/img1.png" alt="" style={{float: 'left'}} height="30px"/>
+</div>
+  
 
                 <Navbar.Brand>
                     <Link className="home" to="/">
@@ -39,8 +41,7 @@ export function Header() {
                         Kijelentkezés
                     </Link>
                 )}
-                    
-                <img src="images/img1.png" alt="" height="20px"/>    
+                  
                 
             </Container>
         </Navbar>
