@@ -9,10 +9,12 @@ export function Header() {
 
     return (
         <Navbar className="navbar navbar-dark" expand="lg" bg="dark" variant="dark">
-            <Container >
-<div style={{ overflow: 'hidden'}}>
+            <div style={{ overflow: 'hidden'}}>
 <img src="images/img1.png" alt="" style={{float: 'left'}} height="30px"/>
+<img src="images/img1.png" alt="" style={{float: 'right'}} height="30px"/>
 </div>
+            <Container >
+
   
 
                 <Navbar.Brand>
@@ -44,6 +46,7 @@ export function Header() {
                   
                 
             </Container>
+          
         </Navbar>
     );
 }
