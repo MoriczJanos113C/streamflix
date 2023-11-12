@@ -50,9 +50,26 @@ export function LoginPage() {
         navigate("/");
     };
 
+    const loginCardStyle = {
+        background: "orange",
+        color: "white",
+        width: "300px",
+        display: "inline-block",
+        border: "3px solid white",
+        padding: "40px",
+        margin: "50px",
+        borderRadius: "10px",
+    };
+
+    const pageStyle = {
+        background: "black", 
+        minHeight: "100vh",
+    };
+
     return (
-        <div className="logIn">
-            <Row>
+        
+        <div className="logIn" style={pageStyle}>
+            <Row style={loginCardStyle}>
                 <Col></Col>
                 <Col xs={6}>
                     <h1 className="headLine">Bejelentkezés</h1>
@@ -86,6 +103,7 @@ export function LoginPage() {
                             className="btn"
                             data-testid="login"
                             type="submit"
+                            style={{ backgroundColor: '#4caf50', color: '#ffffff' }}
                         >
                             Bejelentkezés
                         </Button>
@@ -94,6 +112,7 @@ export function LoginPage() {
                             onClick={navigateToMovies}
                             className="btn"
                             type="submit"
+                            style={{ backgroundColor: '#808080', color: '#ffffff' }}
                         >
                             Folytatás bejelentkezés nélkül
                         </Button>

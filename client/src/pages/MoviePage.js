@@ -142,20 +142,38 @@ export function MoviePage() {
         }
       };
 
+      const velemenyCardStyle = {
+        background: "#808080",
+        color: "white",
+        padding: "10px",
+        margin: "10px",
+        borderRadius: "5px",
+        width: "300px",
+        display: "inline-block",
+    };
+
+    const pageStyle = {
+        background: "black",
+        color: "white", 
+        padding: "40px",
+        minHeight: "100vh",
+    };
+
     return (
-        <div className="">
+        <div className="" style={pageStyle}>
             {movie.map((m) => (
                 <div className="" key={m.film_id}>
                     <h1>{m.film_neve}</h1>
-                    <Button onSubmit={addFavourites}>Kedvencekhez adás</Button>
+                    <Button onSubmit={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>Kedvencekhez adás</Button>
                 </div>
             ))}
             <br></br><br></br><br></br>
-    <div className="">
-                <h1>vélemények</h1>
+    <div className="" >
+                
     </div>    
-<div className="">
+<div className="" style={velemenyCardStyle}>
 <Container>
+<h1>vélemény írása:</h1>
                 {isLoggedIn && (
                     <Form onSubmit={addReview}>
                         <Form.Group className="mb-3">
@@ -164,7 +182,7 @@ export function MoviePage() {
                                 className="input"
                                 onChange={updateFormValue("velemenyErtekeles")}
                                 value={form.velemenyErtekeles}
-                                placeholder="Értékelés pontszám szerint"
+                                placeholder="Értékelés pontszám szerint (1-5)"
                             />
                         </Form.Group>
                         {ratingError && <p>{ratingError}</p>}
@@ -178,7 +196,7 @@ export function MoviePage() {
                             />
                         </Form.Group>
                         {descriptionError && <p>{descriptionError}</p>}
-                        <Button className="reviewBtn" type="submit">
+                        <Button className="reviewBtn" type="submit" style={{ backgroundColor: '#FFA500', color: '#ffffff' }}>
                             Vélemény elküldése
                         </Button>
                     </Form>

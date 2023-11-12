@@ -1,25 +1,27 @@
 /* Header.css */
 
 .navbar {
-    background: none; /* Töröld a háttérszínt a navbar-ról */
+    background: orange;
+    padding: 13px;
+    
 }
 
 .home,
 .favourites,
 .link,
 .logOut {
-    color: yellow;
+    color: white;
     text-decoration: none;
     padding: 10px;
-    margin: 5px;
-    border: 2px solid yellow;
+    margin: 12px;
+    border: 3px solid white;
     border-radius: 5px;
-    transition: color 0.3s, background-color 0.3s; /* Átmeneti effektusok */
+    transition: color 0.3s, background-color 0.3s;
 }
 
 .home:hover,
 .link:hover,
 .logOut:hover {
-    color: yellow;
-    background-color: black;
+    color: white;
+    background-color: orange;
 }

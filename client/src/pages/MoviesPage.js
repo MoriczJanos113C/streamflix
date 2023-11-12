@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export function MoviesPage() {
+    
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -14,31 +15,30 @@ export function MoviesPage() {
     }, []);
 
     const movieCardStyle = {
-        background: "darkgrey",
-        color: "yellow",
+        background: "#808080",
+        color: "white",
         padding: "10px",
         margin: "10px",
         borderRadius: "5px",
-        width: "200px", // Állítsd be a kívánt kártya szélességét
-        display: "inline-block", // A kártyák egymás mellett helyezkednek el
+        width: "200px",
+        display: "inline-block",
     };
 
-    const containerStyle = {
+    const pageStyle = {
         background: "black", 
-        padding: "20px",
-        minHeight: "100vh", // Teljes képernyő magasság
+        padding: "40px",
+        minHeight: "100vh",
     };
 
     return (
-        <div style={containerStyle}>
+        <div style={pageStyle}>
             {movies.map((m) => (
                 <div style={movieCardStyle} key={m.film_id}>
                     <h1>{m.film_neve}</h1>
                     <Link to={`/movies/${m.film_id}`}>
                         Leírás
                     </Link>
-                </div>
-                
+                </div> 
             ))}
         </div>
     );

@@ -10,7 +10,9 @@ export function Header() {
     return (
         <Navbar className="navbar navbar-dark" expand="lg" bg="dark" variant="dark">
             <Container >
-                
+
+                <img src="images/img1.png" alt="" height="20px"/>
+
                 <Navbar.Brand>
                     <Link className="home" to="/">
                         Kezdőlap
@@ -37,7 +39,8 @@ export function Header() {
                         Kijelentkezés
                     </Link>
                 )}
-
+                    
+                <img src="images/img1.png" alt="" height="20px"/>    
                 
             </Container>
         </Navbar>

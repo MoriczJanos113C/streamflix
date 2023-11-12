@@ -104,10 +104,26 @@ export function RegisterPage() {
         }
     };
 
+    const registerCardStyle = {
+        background: "orange",
+        color: "white",
+        width: "300px",
+        display: "inline-block",
+        border: "3px solid white",
+        padding: "40px",
+        margin: "50px",
+        borderRadius: "10px",
+    };
+
+    const pageStyle = {
+        background: "black", 
+        minHeight: "100vh",
+    };
+
     return (
-        <div className="register">
+        <div className="register" style={pageStyle}>
             <Container>
-                <Row>
+                <Row style={registerCardStyle}>
                     <Col></Col>
                     <Col xs={6}>
                         <h1 className="headLine">Regisztráció</h1>
@@ -148,7 +164,7 @@ export function RegisterPage() {
                             </Form.Group>
 
                             {passwordError && <p>{passwordError}</p>}
-                            <Button className="btn" type="submit">
+                            <Button className="btn" type="submit" style={{ backgroundColor: '#4caf50', color: '#ffffff' }}>
                                 Regisztráció
                             </Button>
                             {loginStatus && <p>{loginStatus}</p>}
