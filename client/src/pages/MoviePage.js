@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../App";
 import { format } from 'date-fns';
+import { addDays } from 'date-fns';
 
 const DEFAULT_FORM_OBJECT = {
     velemenyErtekeles: "",
@@ -76,7 +77,7 @@ export function MoviePage() {
                     velemenyLeirasa: form.velemenyLeirasa,
                     velemenyErtekeles: form.velemenyErtekeles,
                     felhasznaloNeve: user.felhasznalonev,
-                    velemenyDatuma: format(new Date(), 'dd-mm-yyyy')
+                    velemenyDatuma: format(addDays(new Date(), 1), 'yyyy-MM-dd')
                 }
             );
             setReviews(reviews.id);
@@ -152,6 +153,20 @@ export function MoviePage() {
         display: "inline-block",
     };
 
+    const velemenyCardStyle2 = {
+        color: "white",
+    };
+
+    const filmCardStyle = {
+        background: "#808080",
+        color: "white",
+        padding: "10px",
+        margin: "10px",
+        borderRadius: "5px",
+        width: "300px",
+        display: "inline-block",
+    };
+
     const pageStyle = {
         background: "black",
         color: "white", 
@@ -159,10 +174,14 @@ export function MoviePage() {
         minHeight: "100vh",
     };
 
+    const narancs = {
+        color: 'orange',
+      };
+
     return (
         <div className="" style={pageStyle}>
             {movie.map((m) => (
-                <div className="" key={m.film_id}>
+                <div className="" key={m.film_id} style={filmCardStyle}>
                     <h1>{m.film_neve}</h1>
                     <Button onSubmit={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>Kedvencekhez adás</Button>
                 </div>
@@ -173,9 +192,9 @@ export function MoviePage() {
     </div>    
 <div className="" style={velemenyCardStyle}>
 <Container>
-<h1>vélemény írása:</h1>
                 {isLoggedIn && (
                     <Form onSubmit={addReview}>
+                        <h1>vélemény írása:</h1>
                         <Form.Group className="mb-3">
                             <Form.Label>Értékelés</Form.Label>
                             <Form.Control
@@ -205,15 +224,13 @@ export function MoviePage() {
     
 </div>
 
-<div className="">
+<div className="" >
             {reviewByProduct.map((pR) => (
-                        <div key={pR.id}>
-                           
-
-                            <h1>{pR.felhasznaloNeve}</h1>
-                            <h2>{pR.velemenyErtekeles}</h2>
+                        <div key={pR.id} style={velemenyCardStyle}>
+                            <h1 style={narancs}>{pR.felhasznaloNeve}</h1> 
+                            <h2>Értékelés: 5/{pR.velemenyErtekeles}</h2>
                             <p>{pR.velemenyLeirasa}</p>
-                            <p>{pR.velemenyDatuma}</p>
+                            <p>{pR.velemenyDatuma.split('T')[0] }</p>
                         </div>
                     ))}
             </div>
