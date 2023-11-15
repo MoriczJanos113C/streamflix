@@ -35,6 +35,8 @@ export function MoviesPage() {
             {movies.map((m) => (
                 <div style={movieCardStyle} key={m.film_id}>
                     <h1>{m.film_neve}</h1>
+                    <img src={`http://localhost:8080/${m.film_kep}`} alt="Film" />
+                    
                     <Link to={`/movies/${m.film_id}`}>
                         Leírás
                     </Link>

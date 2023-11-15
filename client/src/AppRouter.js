@@ -5,13 +5,16 @@ import { MoviePage } from "./pages/MoviePage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { useIsLoggedIn } from "./hooks/useIsLoggedIn";
+import { useIsAdmin } from "./hooks/useIsAdmin";
 import { Header } from "./components/Header";
 import { LogoutPage } from "./pages/LogoutPage";
 import { Favourites } from "./pages/Favourites";
+import { CreateMovie } from "./pages/CreateMovie";
 
 
 export const AppRouter = () => {
     const isLoggedIn = useIsLoggedIn();
+    const isAdmin = useIsAdmin();
 
     return (
         <Router>
@@ -32,6 +35,8 @@ export const AppRouter = () => {
             {isLoggedIn && (
                  <Route path="/favourites" element={<Favourites />} />
                  )}
+
+            <Route path="/createMovie" element={<CreateMovie />} />
             </Routes>
         </Router>
     );
