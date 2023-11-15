@@ -8,6 +8,9 @@ const cors = require("cors");
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const multer = require("multer");
+const { nanoid } = require("nanoid");
+const mime = require("mime-types");
 
 const app = express();
 
@@ -24,6 +27,23 @@ const db = mysql.createConnection({
     password: "",
     database: "streamflix",
 });
+
+
+//setting up where to upload the files
+app.use(express.static("./images"));
+
+//image storage
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "./images");
+    },
+    filename: function (req, file, cb) {
+        let id = nanoid();
+        let ext = mime.extension(file.mimetype);
+        cb(null, `${id}.${ext}`);
+    },
+});
+const upload = multer({ storage: storage });
 
 //lekérések
 //összes film lekérése
@@ -59,6 +79,7 @@ app.post("/register", async (req, res) => {
     const felhasznalonev = req.body.felhasznalonev;
     const email = req.body.email;
     const jelszo = req.body.jelszo;
+    const role = req.body.role;
     const hashedPass = bcrypt.hashSync(jelszo, bcrypt.genSaltSync(10));
 
     db.query(
@@ -69,8 +90,8 @@ app.post("/register", async (req, res) => {
 
             if (result.length === 0) {
                 db.query(
-                    "INSERT INTO felhasznalok (felhasznalonev, email, jelszo) VALUES (?, ?, ?)",
-                    [felhasznalonev, email, hashedPass],
+                    "INSERT INTO felhasznalok (felhasznalonev, email, jelszo, role) VALUES (?, ?, ?, 'felhasználó')",
+                    [felhasznalonev, email, role, hashedPass],
                     (err, Rresult) => {
                         if (err) throw err;
                         res.status(201).send();
@@ -175,6 +196,29 @@ app.post("/kedvencek", async (req, res) => {
             } else {
                 res.send({
                     message: "Kedvenc nem lett hozzáadva",
+                });
+            }
+        }
+    );
+});
+
+//create a movie
+app.post("/movies", upload.single("file"), (req, res) => {
+    const film_neve = req.body.film_neve;
+    const film_hossz = req.body.film_hossz;
+    const film_kategoria = req.body.film_kategoria;
+    const film_kep = req.file.filename;
+
+    db.query(
+        `INSERT INTO filmek (film_neve, film_hossz, film_kategoria, film_kep)  VALUES (?, ?, ?, ?)`,
+        [film_neve, film_hossz, film_kategoria, film_kep],
+        (err, result) => {
+            if (err) throw err;
+            if (result) {
+                res.send(result);
+            } else {
+                res.send({
+                    message: "Not added a movie",
                 });
             }
         }
