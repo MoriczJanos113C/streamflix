@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useIsLoggedIn } from "../hooks/useIsLoggedIn";
+import { useIsAdmin } from "../hooks/useIsAdmin";
 import {
     Container,
     Button,
@@ -37,6 +38,7 @@ export function MoviePage() {
     const [ratingError, setRatingError] = useState("");
     const [descriptionError, setDescriptionError] = useState("");
     const isLoggedIn = useIsLoggedIn();
+    const isAdmin = useIsAdmin();
     //getting one product
     useEffect(() => {
         const fetchProduct = async () => {
@@ -183,16 +185,18 @@ export function MoviePage() {
             {movie.map((m) => (
                 <div className="" key={m.film_id} style={filmCardStyle}>
                     <h1>{m.film_neve}</h1>
-                    <Button onSubmit={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>Kedvencekhez adás</Button>
+                    {!isAdmin && (
+                        <Button onSubmit={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>Kedvencekhez adás</Button>
+                    )}
                 </div>
             ))}
             <br></br><br></br><br></br>
     <div className="" >
                 
-    </div>    
+    </div>
 <div className="" style={velemenyCardStyle}>
 <Container>
-                {isLoggedIn && (
+                {isLoggedIn && !isAdmin && (
                     <Form onSubmit={addReview}>
                         <h1>vélemény írása:</h1>
                         <Form.Group className="mb-3">

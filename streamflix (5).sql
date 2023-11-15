@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Nov 10. 18:02
+-- Létrehozás ideje: 2023. Nov 15. 14:45
 -- Kiszolgáló verziója: 10.4.27-MariaDB
 -- PHP verzió: 8.2.0
 
@@ -33,20 +33,23 @@ CREATE TABLE `felhasznalok` (
   `felh_id` int(11) NOT NULL,
   `felhasznalonev` varchar(66) NOT NULL,
   `email` varchar(66) NOT NULL,
-  `jelszo` varchar(500) NOT NULL
+  `jelszo` varchar(500) NOT NULL,
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `felhasznalok`
 --
 
-INSERT INTO `felhasznalok` (`felh_id`, `felhasznalonev`, `email`, `jelszo`) VALUES
-(1, 'asd', 'asd', 'asd'),
-(2, 'teszt', 'asd@g.com', '$2a$10$F21yEFaWasgMwngnUllHpu6Qg7jwSLwwOwt0g75qw6gaAlkvzp30.'),
-(3, 'eteszt', '1@g.com', '$2a$10$XxDbYLdnX1FsgnzDz9JlJuTUlzMWRvl1PRrd6QcaKIoNYTQQJmE4G'),
-(4, 'felhazsnalo', 'emai@emai.com', '$2a$10$hMILgZnqneiI4l4xUU9H0O02XWlt5z09AxwA6/LyrODboeUvfTcJC'),
-(5, 'asd12', 'asd@gm.com', '$2a$10$PNqiushcni0sdi3zTGLaHuLTDOymKA5Aq/dmhW8.W4Qajk5QfchNi'),
-(6, 'tesztelek', 'asd@gmail.com', '$2a$10$brLuiUgpBNtv7M5IPkc84OcrBiVwRb.4U4D/7mMGutO4G68ULB9Wu');
+INSERT INTO `felhasznalok` (`felh_id`, `felhasznalonev`, `email`, `jelszo`, `role`) VALUES
+(1, 'asd', 'asd', 'asd', ''),
+(2, 'teszt', 'asd@g.com', '$2a$10$F21yEFaWasgMwngnUllHpu6Qg7jwSLwwOwt0g75qw6gaAlkvzp30.', ''),
+(3, 'eteszt', '1@g.com', '$2a$10$XxDbYLdnX1FsgnzDz9JlJuTUlzMWRvl1PRrd6QcaKIoNYTQQJmE4G', ''),
+(4, 'felhazsnalo', 'emai@emai.com', '$2a$10$hMILgZnqneiI4l4xUU9H0O02XWlt5z09AxwA6/LyrODboeUvfTcJC', ''),
+(5, 'asd12', 'asd@gm.com', '$2a$10$PNqiushcni0sdi3zTGLaHuLTDOymKA5Aq/dmhW8.W4Qajk5QfchNi', ''),
+(6, 'tesztelek', 'asd@gmail.com', '$2a$10$brLuiUgpBNtv7M5IPkc84OcrBiVwRb.4U4D/7mMGutO4G68ULB9Wu', ''),
+(7, 'admin', 'admin@gmail.com', '$2a$10$M7UjxiwCY4Au.07xZHgN2.kITOPe6oY62pciBg3rnGbhO5lysboCq', 'admin'),
+(8, 'fsfsa', 'ffas@gmail.com', '$2a$10$LpQN3/xFzKDBqjh3W1sVXedoXtsXjepEwA0YUPVWFOT3FoRup4sKm', 'felhasználó');
 
 -- --------------------------------------------------------
 
@@ -58,16 +61,18 @@ CREATE TABLE `filmek` (
   `film_id` int(11) NOT NULL,
   `film_neve` varchar(66) NOT NULL,
   `film_hossz` int(11) NOT NULL,
-  `film_kategoria` varchar(66) NOT NULL
+  `film_kategoria` varchar(66) NOT NULL,
+  `film_kep` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `filmek`
 --
 
-INSERT INTO `filmek` (`film_id`, `film_neve`, `film_hossz`, `film_kategoria`) VALUES
-(1, 'asd', 0, 'asdjelszo'),
-(2, 'asd2', 2, 'kat2');
+INSERT INTO `filmek` (`film_id`, `film_neve`, `film_hossz`, `film_kategoria`, `film_kep`) VALUES
+(1, 'asd', 0, 'asdjelszo', ''),
+(2, 'asd2', 2, 'kat2', ''),
+(3, 'ujfilm', 12, 'safas', 'g8x0zjPNXUICd7bcaWNwC.jpeg');
 
 -- --------------------------------------------------------
 
@@ -78,15 +83,17 @@ INSERT INTO `filmek` (`film_id`, `film_neve`, `film_hossz`, `film_kategoria`) VA
 CREATE TABLE `kedvencek` (
   `kedvenc_id` int(11) NOT NULL,
   `felh_id` int(11) NOT NULL,
-  `film_id` int(11) NOT NULL
+  `film_id` int(11) NOT NULL,
+  `film_neve` varchar(255) NOT NULL,
+  `film_kep` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `kedvencek`
 --
 
-INSERT INTO `kedvencek` (`kedvenc_id`, `felh_id`, `film_id`) VALUES
-(1, 2, 12);
+INSERT INTO `kedvencek` (`kedvenc_id`, `felh_id`, `film_id`, `film_neve`, `film_kep`) VALUES
+(1, 2, 12, '', '');
 
 -- --------------------------------------------------------
 
@@ -158,13 +165,13 @@ ALTER TABLE `velemenyek`
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `felh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `felh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT a táblához `filmek`
 --
 ALTER TABLE `filmek`
-  MODIFY `film_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `film_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `kedvencek`

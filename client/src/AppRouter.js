@@ -10,6 +10,7 @@ import { Header } from "./components/Header";
 import { LogoutPage } from "./pages/LogoutPage";
 import { Favourites } from "./pages/Favourites";
 import { CreateMovie } from "./pages/CreateMovie";
+import { NotFound } from "./pages/NotFound";
 
 
 export const AppRouter = () => {
@@ -35,8 +36,12 @@ export const AppRouter = () => {
             {isLoggedIn && (
                  <Route path="/favourites" element={<Favourites />} />
                  )}
+            {isAdmin && (
+                <Route path="/createMovie" element={<CreateMovie />} />
+            )}
 
-            <Route path="/createMovie" element={<CreateMovie />} />
+            <Route path="*" element={<NotFound />} />
+            
             </Routes>
         </Router>
     );

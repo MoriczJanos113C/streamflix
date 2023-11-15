@@ -91,7 +91,7 @@ app.post("/register", async (req, res) => {
             if (result.length === 0) {
                 db.query(
                     "INSERT INTO felhasznalok (felhasznalonev, email, jelszo, role) VALUES (?, ?, ?, 'felhasználó')",
-                    [felhasznalonev, email, role, hashedPass],
+                    [felhasznalonev, email, hashedPass, role],
                     (err, Rresult) => {
                         if (err) throw err;
                         res.status(201).send();
