@@ -229,7 +229,7 @@ export function MoviePage() {
                     
                     
 
-            {!isAdmin && (
+            {!isAdmin && isLoggedIn && (
                 <div>
                     <Button onClick={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>
                         Kedvencekhez adás
