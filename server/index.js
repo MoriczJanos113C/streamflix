@@ -1,7 +1,3 @@
-//telepítés
-//npm init, npm i express, npm i cors, mysql
-//indítás: node index.js
-
 //modulok
 const express = require("express");
 const cors = require("cors");
@@ -14,13 +10,11 @@ const mime = require("mime-types");
 
 const app = express();
 
-//It parses incoming JSON requests and puts the parsed data in req.body
 app.use(express.json());
 
-//enable the express server to respond to preflight requests
 app.use(cors());
 
-//creating database connection
+//adatbázis kapcsolat
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -29,10 +23,10 @@ const db = mysql.createConnection({
 });
 
 
-//setting up where to upload the files
+//képek tárolására a mappa
 app.use(express.static("./images"));
 
-//image storage
+//képek tárhelye
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./images");
@@ -139,8 +133,8 @@ app.post("/login", (req, res) => {
     );
 });
 
-//film vélemények
-app.post("/velemenyek", async (req, res) => {
+//értékelés írása egy filmre
+app.post("/reviews", async (req, res) => {
     const felh_id = req.body.felh_id;
     const film_id = req.body.film_id;
     const velemenyLeirasa = req.body.velemenyLeirasa;
@@ -164,8 +158,8 @@ app.post("/velemenyek", async (req, res) => {
     );
 });
 
-//will give a review/reviews for a product
-app.get("/velemenyek/:id", (req, res) => {
+//értékelések egy adott filmre
+app.get("/reviews/:id", (req, res) => {
     db.query(
         "SELECT * FROM velemenyek WHERE film_id = ?",
         req.params.id,
@@ -182,7 +176,7 @@ app.get("/velemenyek/:id", (req, res) => {
 });
 
 //film vélemények
-app.post("/kedvencek", upload.single('file'), (req, res) => {
+app.post("/favourites", upload.single('file'), (req, res) => {
     const felh_id = req.body.felh_id;
     const film_id = req.body.film_id;
     const film_neve = req.body.film_neve;
@@ -205,7 +199,7 @@ app.post("/kedvencek", upload.single('file'), (req, res) => {
 });
 
 //kedvencek a felhasználónak
-app.get("/kedvencek/:felh_id", (req, res) => {
+app.get("/favourites/:felh_id", (req, res) => {
     db.query(
         "SELECT * FROM kedvencek WHERE felh_id = ?",
         [req.params.felh_id],
@@ -230,7 +224,7 @@ app.get("/kedvencek/:felh_id", (req, res) => {
 });
 
 //kedvenc törlése
-app.delete("/kedvencek/:kedvenc_id", (req, res) => {
+app.delete("/favourites/:kedvenc_id", (req, res) => {
     db.query(
         `DELETE FROM kedvencek WHERE kedvenc_id = ${req.params.kedvenc_id}`,
         (err, result) => {
@@ -247,6 +241,43 @@ app.delete("/kedvencek/:kedvenc_id", (req, res) => {
     );
 });
 
+//vélemény törlése
+app.delete("/reviews/:velemeny_id", (req, res) => {
+    db.query(
+        `DELETE FROM velemenyek WHERE velemeny_id = ${req.params.velemeny_id}`,
+        (err, result) => {
+            if (result) {
+                res.send({
+                    message: "Deleted a review",
+                });
+            } else {
+                res.send({
+                    message: "Not deleted any review",
+                });
+            }
+        }
+    );
+});
+
+//összes vélemény törlése az adott filmről ha a filmet töröltük
+app.delete("/allReviews/:film_id", (req, res) => {
+    db.query(
+        `DELETE FROM velemenyek WHERE film_id = ${req.params.film_id}`,
+        (err, result) => {
+            if (result) {
+                res.send({
+                    message: "Deleted the reviews",
+                });
+            } else {
+                res.send({
+                    message: "Not deleted any review",
+                });
+            }
+        }
+    );
+});
+
+//film törlése
 app.delete("/movies/:film_id", (req, res) => {
     db.query(
         `DELETE FROM filmek WHERE film_id = ${req.params.film_id}`,
@@ -264,7 +295,7 @@ app.delete("/movies/:film_id", (req, res) => {
     );
 });
 
-//create a movie
+//film létrehozása
 app.post("/movies", upload.single("file"), (req, res) => {
     const film_neve = req.body.film_neve;
     const film_hossz = req.body.film_hossz;
@@ -286,8 +317,6 @@ app.post("/movies", upload.single("file"), (req, res) => {
         }
     );
 });
-
-
 
 app.listen(8080, () => {
     console.log("running server");

@@ -4,18 +4,14 @@ import React, { useEffect, useState } from "react";
 export const ConfirmationContext = React.createContext();
 export const UserContext = React.createContext();
 
-
-
 function App() {
   const confirmationState = useState(null);
 
-//localstorage for the user
 const userState = useState(() => {
   const userInLocalStorage = localStorage.getItem("user");
   return userInLocalStorage ? JSON.parse(userInLocalStorage) : {};
 });
 
-//will save the user's datas to localstorage
 useEffect(() => {
   localStorage.setItem("user", JSON.stringify(userState[0]));
 }, userState);

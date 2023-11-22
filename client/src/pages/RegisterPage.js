@@ -13,7 +13,6 @@ const DEFAULT_FORM_OBJECT = {
 };
 
 export function RegisterPage() {
-    //hooks, contextes and navigate
     const [form, setForm] = useState(DEFAULT_FORM_OBJECT);
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
@@ -22,7 +21,6 @@ export function RegisterPage() {
     const [passwordError, setPasswordError] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
 
-    //to write to form
     const updateFormValue = (key) => (e) => {
         setForm({
             ...form,
@@ -30,7 +28,6 @@ export function RegisterPage() {
         });
     };
 
-    //validation to the form
     const checkValid = () => {
         if (
             !String(form.jelszo).match(/^[a-zA-Z0-9]{6,}$/) &&
@@ -62,12 +59,10 @@ export function RegisterPage() {
         }
     };
 
-    //check that the validation is correct
     useEffect(() => {
         checkValid();
     }, [form]);
 
-    //will register a user if the form's is valid and if the user is forgetting he already having an account, he will logged in with his/her account what he/she already had before
     const registerUser = async (e) => {
         e.preventDefault();
         if (
@@ -101,7 +96,9 @@ export function RegisterPage() {
             } else {
                 navigate("/");
             }
-        }
+        }else {
+            alert("Minden mezőt tölts ki!");
+          }
     };
 
     const registerCardStyle = {
@@ -146,7 +143,7 @@ export function RegisterPage() {
                                     className="input"
                                     onChange={updateFormValue("email")}
                                     value={form.email}
-                                    type="text"
+                                    type="email"
                                     placeholder="A kívánt email megadása"
                                 />
                             </Form.Group>

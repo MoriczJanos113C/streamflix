@@ -44,29 +44,26 @@ export function MoviePage() {
     const [favourites, setFavourites] = useState([]);
     const [isFavorited, setIsFavorited] = useState(false);
 
-    //getting one product
     useEffect(() => {
-        const fetchProduct = async () => {
+        const fetchMovies = async () => {
             const { data: movie } = await axios.get(
                 `http://localhost:8080/movies/${movieID}`
             );
             setMovie(movie);
         };
-        fetchProduct();
+        fetchMovies();
     }, [movieID]);
 
-    //getting the reviews what the product have by calling the review's id
     useEffect(() => {
-        const fetchProduct = async () => {
+        const fetchReview = async () => {
             const { data: review } = await axios.get(
-                `http://localhost:8080/velemenyek/${reviewID}`
+                `http://localhost:8080/reviews/${reviewID}`
             );
             setReviewByProduct(review);
         };
-        fetchProduct();
+        fetchReview();
     }, [reviewID]);
 
-    //to add a review for a product, and its sending the user's id, username too
     const addReview = async (e) => {
         e.preventDefault();
         if (
@@ -76,7 +73,7 @@ export function MoviePage() {
             form.velemenyLeirasa.trim() != ""
         ) {
             const { data: reviews } = await axios.post(
-                "http://localhost:8080/velemenyek",
+                "http://localhost:8080/reviews",
                 {
                     film_id: movieID,
                     felh_id: user.felh_id,
@@ -88,12 +85,11 @@ export function MoviePage() {
                 }
             );
             setReviews(reviews.id);
+            alert("Értékelés hozzáadva!")
             window.location.reload();
         }
     };
 
-
-    //to write to form
     const updateFormValue = (key) => (e) => {
         setForm({
             ...form,
@@ -101,7 +97,6 @@ export function MoviePage() {
         });
     };
 
-    //validation for the form
     const checkValid = () => {
         if (
             !String(form.velemenyErtekeles).match(/^[1-5]{1,1}$/) &&
@@ -135,7 +130,7 @@ export function MoviePage() {
                 toast.info("A film már hozzá van adva a kedvencekhez.");
             } else {
                 const { data: favourites } = await axios.post(
-                    "http://localhost:8080/kedvencek",
+                    "http://localhost:8080/favourites",
                     {
                         film_id: movieID,
                         felh_id: user.felh_id,
@@ -148,7 +143,6 @@ export function MoviePage() {
                 toast.success("Sikeresen hozzáadtad a kedvencekhez!");
             }
         } catch (error) {
-            console.error('Error:', error);
             toast.error("Hiba történt a kedvencek hozzáadása során");
         }
     };
@@ -160,10 +154,29 @@ export function MoviePage() {
                 Authorization: `Bearer ${user.token}`,
             },
         });
+        axios.delete(`http://localhost:8080/allReviews/${reviewID}`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        alert("Film törölve!");
         navigate("/");
-        window.location.reload();
     };
 
+    const deleteReview = async (e, id) => {
+        e.preventDefault();
+        const reviewToDelete = reviewByProduct.find(review => review.velemeny_id === id);
+    
+        if (reviewToDelete) {
+            await axios.delete(`http://localhost:8080/reviews/${reviewToDelete.velemeny_id}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+            alert("Értékelés törölve!");
+            window.location.reload();
+        }
+    };
 
       const velemenyCardStyle = {
         background: "#808080",
@@ -205,13 +218,16 @@ export function MoviePage() {
             {movie.map((m) => (
                 <div className="" key={m.film_id} style={filmCardStyle}>
                     <h1>{m.film_neve}</h1>
-                    <Button
+                    {isAdmin && (
+                        <Button
                             onClick={(e) => deleteFilm(e, m.film_id)}
                             className="deleteBtn"
                             >
                             Törlés
                         </Button>
-                    {/*...*/}
+                    )}
+                    
+                    
 
             {!isAdmin && (
                 <div>
@@ -227,8 +243,8 @@ export function MoviePage() {
     <div className="" >
                 
     </div>
-<div className="" style={velemenyCardStyle}>
-<Container>
+        <div className="" style={velemenyCardStyle}>
+        <Container>
                 {isLoggedIn && !isAdmin && (
                     <Form onSubmit={addReview}>
                         <h1>vélemény írása:</h1>
@@ -245,6 +261,7 @@ export function MoviePage() {
                         <Form.Group className="mb-3">
                             <Form.Label>Termék vélemény írás</Form.Label>
                             <Form.Control
+                                as="textarea"
                                 className="input"
                                 onChange={updateFormValue("velemenyLeirasa")}
                                 value={form.velemenyLeirasa}
@@ -261,16 +278,28 @@ export function MoviePage() {
     
 </div>
 
-<div className="" >
-            {reviewByProduct.map((pR) => (
-                        <div key={pR.id} style={velemenyCardStyle}>
-                            <h1 style={narancs}>{pR.felhasznaloNeve}</h1> 
-                            <h2>Értékelés: 5/{pR.velemenyErtekeles}</h2>
-                            <p>{pR.velemenyLeirasa}</p>
-                            <p>{pR.velemenyDatuma.split('T')[0] }</p>
-                        </div>
-                    ))}
-            </div>
+    <div className="">
+    {reviewByProduct.length > 0 ? (
+        reviewByProduct.map((pR) => (
+        <div key={pR.velemeny_id} style={velemenyCardStyle}>
+            <h1 style={narancs}>{pR.felhasznaloNeve}</h1>
+            {isAdmin && (
+            <Button
+                onClick={(e) => deleteReview(e, pR.velemeny_id)}
+                className="deleteBtn"
+            >
+                Törlés
+            </Button>
+            )}
+            <h2>Értékelés: 5/{pR.velemenyErtekeles}</h2>
+            <p>{pR.velemenyLeirasa}</p>
+            <p>{pR.velemenyDatuma.split("T")[0]}</p>
+        </div>
+        ))
+    ) : (
+        <p>Nincs értékelés az adott filmre.</p>
+    )}
+    </div>
 
         </div>
         

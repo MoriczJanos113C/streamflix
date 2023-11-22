@@ -1,18 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../App";
-import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 export function Favourites() {
     const [favourites, setFavourites] = useState([]);
     const { user } = useContext(UserContext);
-    const { id: favouriteID } = useParams();
 
     useEffect(() => {
         const fetchFavourites = async () => {
             const { data: favourites } = await axios.get(
-                `http://localhost:8080/kedvencek/${user.felh_id}`
+                `http://localhost:8080/favourites/${user.felh_id}`
             );
             setFavourites(favourites);
         };
@@ -21,11 +19,12 @@ export function Favourites() {
 
     const deleteFavourite = (e, id) => {
         e.preventDefault();
-        axios.delete(`http://localhost:8080/kedvencek/${id}`, {
+        axios.delete(`http://localhost:8080/favourites/${id}`, {
             headers: {
                 Authorization: `Bearer ${user.token}`,
             },
         });
+        alert("Eltávolítva a kedvencekből az adott film!")
         window.location.reload();
     };
 
