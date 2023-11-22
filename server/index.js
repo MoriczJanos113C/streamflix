@@ -204,6 +204,31 @@ app.post("/kedvencek", upload.single('file'), (req, res) => {
     );
 });
 
+//kedvencek a felhasználónak
+app.get("/kedvencek/:felh_id", (req, res) => {
+    db.query(
+        "SELECT * FROM kedvencek WHERE felh_id = ?",
+        [req.params.felh_id],
+        (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send({
+                    message: "Internal server error",
+                });
+                return;
+            }
+
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                res.send({
+                    message: "Not found any movie",
+                });
+            }
+        }
+    );
+});
+
 //create a movie
 app.post("/movies", upload.single("file"), (req, res) => {
     const film_neve = req.body.film_neve;
