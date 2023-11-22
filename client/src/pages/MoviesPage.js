@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useIsAdmin } from "../hooks/useIsAdmin";
 
 export function MoviesPage() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const isAdmin = useIsAdmin();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -90,6 +92,13 @@ export function MoviesPage() {
           <Link to={`/movies/${m.film_id}`}>
             Leírás
           </Link>
+
+          {isAdmin && (
+            <Link to={`/editMovie/${m.film_id}`}>
+            Film szerkesztése
+          </Link>
+          )}
+          
         </div>
       ))}
     </div>

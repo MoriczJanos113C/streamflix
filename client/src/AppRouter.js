@@ -11,6 +11,7 @@ import { LogoutPage } from "./pages/LogoutPage";
 import { Favourites } from "./pages/Favourites";
 import { CreateMovie } from "./pages/CreateMovie";
 import { NotFound } from "./pages/NotFound";
+import { EditMovie } from "./pages/EditMovie";
 
 
 export const AppRouter = () => {
@@ -38,6 +39,10 @@ export const AppRouter = () => {
                  )}
             {isAdmin && (
                 <Route path="/createMovie" element={<CreateMovie />} />
+            )}
+
+            {isAdmin && (
+                <Route path="/editMovie/:id" element={<EditMovie />} />
             )}
 
             <Route path="*" element={<NotFound />} />

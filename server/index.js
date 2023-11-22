@@ -68,6 +68,32 @@ app.get("/movies/:film_id", (req, res) => {
     );
 });
 
+//film szerkesztése
+app.put("/movies/:film_id", upload.single("file"), async (req, res) => {
+    const film_neve = req.body.film_neve;
+    const film_hossz = req.body.film_hossz;
+    const film_kategoria = req.body.film_kategoria;
+    const film_kep = req.body.file ? req.body.file : req.file.filename;
+
+    db.query(
+        `UPDATE filmek SET film_neve = ?, film_hossz = ?, film_kategoria = ?, film_kep = ? WHERE film_id = ${req.params.film_id}`,
+        [film_neve, film_hossz, film_kategoria, film_kep],
+        (err, result) => {
+            if (err) throw err;
+
+            if (result) {
+                res.send({
+                    message: "Movie updated",
+                });
+            } else {
+                res.send({
+                    message: "Movie not updated",
+                });
+            }
+        }
+    );
+});
+
 //regisztrálás
 app.post("/register", async (req, res) => {
     const felhasznalonev = req.body.felhasznalonev;
