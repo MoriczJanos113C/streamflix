@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { format } from 'date-fns';
 import { addDays } from 'date-fns';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DEFAULT_FORM_OBJECT = {
     velemenyErtekeles: "",
@@ -39,6 +41,9 @@ export function MoviePage() {
     const [descriptionError, setDescriptionError] = useState("");
     const isLoggedIn = useIsLoggedIn();
     const isAdmin = useIsAdmin();
+    const [favourites, setFavourites] = useState([]);
+    const [isFavorited, setIsFavorited] = useState(false);
+
     //getting one product
     useEffect(() => {
         const fetchProduct = async () => {
@@ -125,25 +130,28 @@ export function MoviePage() {
     }, [form]);
 
     const addFavourites = async () => {
-        const felh_id = user.id; // Felhasználó azonosítója, például a bejelentkezett felhasználóé
-        const movie_id = movie.movieID;
-      
         try {
-          // Küldj POST kérést az adatbázisba
-          const response = await axios.post('/kedvencek', { felh_id, movie_id });
-      
-          if (response.data.message === 'Sikeres hozzáadás') {
-            console.log('A film hozzá lett adva a kedvencekhez.');
-      
-            // Navigálás a "/kedvencek"-re
-            window.location.href = '/kedvencek';
-          } else {
-            console.log('Hiba a kedvencekhez adás során.');
-          }
+            if (isFavorited) {
+                toast.info("A film már hozzá van adva a kedvencekhez.");
+            } else {
+                const { data: favourites } = await axios.post(
+                    "http://localhost:8080/kedvencek",
+                    {
+                        film_id: movieID,
+                        felh_id: user.felh_id,
+                        film_neve: movie[0].film_neve,
+                        film_kep: movie[0].film_kep
+                    }
+                );
+                setFavourites(favourites.kedvenc_id);
+                setIsFavorited(true);
+                toast.success("Sikeresen hozzáadtad a kedvencekhez!");
+            }
         } catch (error) {
-          console.error('Hiba a kérés során:', error);
+            console.error('Error:', error);
+            toast.error("Hiba történt a kedvencek hozzáadása során");
         }
-      };
+    };
 
       const velemenyCardStyle = {
         background: "#808080",
@@ -185,9 +193,17 @@ export function MoviePage() {
             {movie.map((m) => (
                 <div className="" key={m.film_id} style={filmCardStyle}>
                     <h1>{m.film_neve}</h1>
-                    {!isAdmin && (
-                        <Button onSubmit={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>Kedvencekhez adás</Button>
-                    )}
+                    
+                    {/*...*/}
+
+            {!isAdmin && (
+                <div>
+                    <Button onClick={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>
+                        Kedvencekhez adás
+                    </Button>
+                    <ToastContainer />
+                </div>
+            )} 
                 </div>
             ))}
             <br></br><br></br><br></br>

@@ -182,13 +182,15 @@ app.get("/velemenyek/:id", (req, res) => {
 });
 
 //film vélemények
-app.post("/kedvencek", async (req, res) => {
+app.post("/kedvencek", upload.single('file'), (req, res) => {
     const felh_id = req.body.felh_id;
     const film_id = req.body.film_id;
+    const film_neve = req.body.film_neve;
+    const film_kep = req.body.film_kep;
 
     db.query(
-        "INSERT INTO kedvencek (felh_id, film_id) VALUES (?, ?)",
-        [felh_id, film_id],
+        "INSERT INTO kedvencek (felh_id, film_id, film_neve, film_kep) VALUES (?, ?, ?, ?)",
+        [felh_id, film_id, film_neve, film_kep],
         (err, result) => {
             if (err) throw err;
             if (result) {
