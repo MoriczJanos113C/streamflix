@@ -4,6 +4,7 @@ import Axios from "axios";
 import React from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import "../components/kinezet.css";
 
 
 const DEFAULT_FORM_OBJECT = {
@@ -101,32 +102,16 @@ export function RegisterPage() {
           }
     };
 
-    const registerCardStyle = {
-        background: "orange",
-        color: "white",
-        width: "300px",
-        display: "inline-block",
-        border: "3px solid white",
-        padding: "40px",
-        margin: "50px",
-        borderRadius: "10px",
-    };
-
-    const pageStyle = {
-        background: "black", 
-        minHeight: "100vh",
-    };
-
     return (
-        <div className="register" style={pageStyle}>
-            <Container>
-                <Row style={registerCardStyle}>
+        <div className="background">
+            <Container className="doboz">
+                <Row>
                     <Col></Col>
                     <Col xs={6}>
-                        <h1 className="headLine">Regisztráció</h1>
+                        <h1 className="betu">Regisztráció</h1>
                         <Form onSubmit={registerUser}>
                             <Form.Group className="mb-3">
-                                <Form.Label>Felhasználónév</Form.Label>
+                                <Form.Label >Felhasználónév</Form.Label>
                                 <Form.Control
                                     className="input"
                                     onChange={updateFormValue("felhasznalonev")}
@@ -138,7 +123,7 @@ export function RegisterPage() {
 
                             {usernameError && <p>{usernameError}</p>}
                             <Form.Group className="mb-3">
-                                <Form.Label>Email</Form.Label>
+                                <Form.Label >Email</Form.Label>
                                 <Form.Control
                                     className="input"
                                     onChange={updateFormValue("email")}
@@ -150,7 +135,7 @@ export function RegisterPage() {
 
                             {emailError && <p>{emailError}</p>}
                             <Form.Group className="mb-3">
-                                <Form.Label>Jelszó</Form.Label>
+                                <Form.Label >Jelszó</Form.Label>
                                 <Form.Control
                                     className="input"
                                     onChange={updateFormValue("jelszo")}
@@ -161,7 +146,7 @@ export function RegisterPage() {
                             </Form.Group>
 
                             {passwordError && <p>{passwordError}</p>}
-                            <Button className="btn" type="submit" style={{ backgroundColor: '#4caf50', color: '#ffffff' }}>
+                            <Button className="button1" type="submit">
                                 Regisztráció
                             </Button>
                             {loginStatus && <p>{loginStatus}</p>}
@@ -170,6 +155,7 @@ export function RegisterPage() {
                     <Col></Col>
                 </Row>
             </Container>
-        </div>
+        </div >
+        
     );
 }

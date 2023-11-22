@@ -1,0 +1,78 @@
+.betu{
+    color: white;
+}
+
+.linkszin{
+    color: orange;
+}
+
+.linkszin2{
+    color: black;
+}
+
+.button1{
+    background-color: green;
+    color: white; 
+}
+
+.button2{
+    background-color: red;
+    color: white; 
+}
+
+.button3{
+    background-color: grey;
+    color: white;
+}
+
+.button4{
+    background-color: grey;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+
+}
+
+.background{
+    background-color: black;
+    min-height: 665px;
+    height: auto;
+}
+
+.background2{
+    background-color: black;
+    min-height: 580px;
+    height: auto;
+    padding: 40px;
+}
+
+.doboz{
+    background: orange;
+    color: white;
+    width: 300px;
+    display: inline-block;
+    border: 3px solid white;
+    padding: 40px;
+    margin: 50px;
+    border-radius: 10px;
+}
+
+.kartya{
+    background: grey;
+    color: white;
+    padding: 40px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 200px;
+    display: inline-block;
+}
+
+.kartya2{
+    background: grey;
+    color: white;
+    padding: 40px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 300px;
+    display: inline-block;
+}

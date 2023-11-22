@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useIsAdmin } from "../hooks/useIsAdmin";
+import "../components/kinezet.css";
 
 export function MoviesPage() {
   const [movies, setMovies] = useState([]);
@@ -16,22 +17,6 @@ export function MoviesPage() {
     };
     fetchMovies();
 }, []);
-
-  const movieCardStyle = {
-    background: "#808080",
-    color: "white",
-    padding: "10px",
-    margin: "10px",
-    borderRadius: "5px",
-    width: "200px",
-    display: "inline-block",
-  };
-
-  const pageStyle = {
-    background: "black",
-    padding: "40px",
-    minHeight: "100vh",
-  };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -59,9 +44,9 @@ export function MoviesPage() {
 
 
   return (
-    <div style={pageStyle}>
+    <div className="background2">
       <div style={{ marginBottom: "20px" }}>
-        <label>
+        <label className="betu">
           Keresés film neve alapján:
           <input
             type="text"
@@ -70,12 +55,12 @@ export function MoviesPage() {
           />
         </label>
 
-        <div>
+        <div className="betu">
           Válassz kategóriát:
           {['all', 'horror', 'romantikus', 'vígjáték', 'fantasy'].map((category) => (
-            <button
+            <button className="button4"
               key={category}
-              style={{ margin: '5px', padding: '5px', background: selectedCategory === category ? 'blue' : 'gray', color: 'white' }}
+              style={{background: selectedCategory === category ? 'orange' : 'gray'}}
               onClick={() => handleCategoryChange(category)}
             >
               {category}
@@ -85,11 +70,10 @@ export function MoviesPage() {
       </div>
 
       {filterMovies().map((m) => (
-        <div style={movieCardStyle} key={m.film_id}>
+        <div className="kartya" key={m.film_id}>
           <h1>{m.film_neve}</h1>
           <img src={`http://localhost:8080/${m.film_kep}`} alt="Film" />
-
-          <Link to={`/movies/${m.film_id}`}>
+          <Link className="linkszin2" to={`/movies/${m.film_id}`}>
             Leírás
           </Link>
 

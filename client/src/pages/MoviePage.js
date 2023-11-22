@@ -15,6 +15,7 @@ import { format } from 'date-fns';
 import { addDays } from 'date-fns';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "../components/kinezet.css";
 
 const DEFAULT_FORM_OBJECT = {
     velemenyErtekeles: "",
@@ -178,16 +179,6 @@ export function MoviePage() {
         }
     };
 
-      const velemenyCardStyle = {
-        background: "#808080",
-        color: "white",
-        padding: "10px",
-        margin: "10px",
-        borderRadius: "5px",
-        width: "300px",
-        display: "inline-block",
-    };
-
     const velemenyCardStyle2 = {
         color: "white",
     };
@@ -200,21 +191,14 @@ export function MoviePage() {
         borderRadius: "5px",
         width: "300px",
         display: "inline-block",
-    };
-
-    const pageStyle = {
-        background: "black",
-        color: "white", 
-        padding: "40px",
-        minHeight: "100vh",
-    };
+    }; 
 
     const narancs = {
         color: 'orange',
       };
 
     return (
-        <div className="" style={pageStyle}>
+        <div className="background">
             {movie.map((m) => (
                 <div className="" key={m.film_id} style={filmCardStyle}>
                     <h1>{m.film_neve}</h1>
@@ -231,7 +215,7 @@ export function MoviePage() {
 
             {!isAdmin && isLoggedIn && (
                 <div>
-                    <Button onClick={addFavourites} style={{ backgroundColor: '#FF0000', color: '#ffffff' }}>
+                    <Button className="button1" onClick={addFavourites}>
                         Kedvencekhez adás
                     </Button>
                     <ToastContainer />
@@ -243,7 +227,7 @@ export function MoviePage() {
     <div className="" >
                 
     </div>
-        <div className="" style={velemenyCardStyle}>
+        <div className="kartya2">
         <Container>
                 {isLoggedIn && !isAdmin && (
                     <Form onSubmit={addReview}>
@@ -259,7 +243,7 @@ export function MoviePage() {
                         </Form.Group>
                         {ratingError && <p>{ratingError}</p>}
                         <Form.Group className="mb-3">
-                            <Form.Label>Termék vélemény írás</Form.Label>
+                            <Form.Label>Film vélemény írás</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 className="input"
@@ -278,10 +262,10 @@ export function MoviePage() {
     
 </div>
 
-    <div className="">
+    <div >
     {reviewByProduct.length > 0 ? (
         reviewByProduct.map((pR) => (
-        <div key={pR.velemeny_id} style={velemenyCardStyle}>
+        <div className="kartya" key={pR.velemeny_id}>
             <h1 style={narancs}>{pR.felhasznaloNeve}</h1>
             {isAdmin && (
             <Button
@@ -297,7 +281,7 @@ export function MoviePage() {
         </div>
         ))
     ) : (
-        <p>Nincs értékelés az adott filmre.</p>
+        <p className="betu">Nincs értékelés az adott filmre.</p>
     )}
     </div>
 

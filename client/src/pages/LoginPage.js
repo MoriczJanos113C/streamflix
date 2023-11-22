@@ -4,6 +4,7 @@ import Axios from "axios";
 import React from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import "../components/kinezet.css";
 
 
 const DEFAULT_FORM_OBJECT = {
@@ -45,26 +46,10 @@ export function LoginPage() {
         navigate("/");
     };
 
-    const loginCardStyle = {
-        background: "orange",
-        color: "white",
-        width: "300px",
-        display: "inline-block",
-        border: "3px solid white",
-        padding: "40px",
-        margin: "50px",
-        borderRadius: "10px",
-    };
-
-    const pageStyle = {
-        background: "black", 
-        minHeight: "100vh",
-    };
-
     return (
         
-        <div className="logIn" style={pageStyle}>
-            <Row style={loginCardStyle}>
+        <div className="background">
+            <Row className="doboz">
                 <Col></Col>
                 <Col xs={6}>
                     <h1 className="headLine">Bejelentkezés</h1>
@@ -94,20 +79,19 @@ export function LoginPage() {
                                 placeholder="Jelszó"
                             />
                         </Form.Group>
-                        <Button
-                            className="btn"
+                        <Button className="button1"
                             data-testid="login"
                             type="submit"
-                            style={{ backgroundColor: '#4caf50', color: '#ffffff' }}
+                            
                         >
                             Bejelentkezés
                         </Button>
                         {loginStatus && <p>{loginStatus}</p>}
-                        <Button
+                        <Button className="button3"
                             onClick={navigateToMovies}
-                            className="btn"
                             type="submit"
-                            style={{ backgroundColor: '#808080', color: '#ffffff' }}
+                            
+                            
                         >
                             Folytatás bejelentkezés nélkül
                         </Button>

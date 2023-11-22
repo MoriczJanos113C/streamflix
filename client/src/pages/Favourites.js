@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../App";
 import { Button } from "react-bootstrap";
+import "../components/kinezet.css";
 
 export function Favourites() {
     const [favourites, setFavourites] = useState([]);
@@ -29,23 +30,23 @@ export function Favourites() {
     };
 
     return (
-        <div>
-        <h1>Kedvencei:</h1>
+        <div className="background">
+        <h1 className="betu">Kedvencei:</h1>
         <div className="">
             {favourites.length > 0 ? (
                 favourites.map((f) => (
-                    <div key={f.kedvenc_id}>
+                    <div className="kartya" key={f.kedvenc_id}>
                         <h1>{f.film_neve}</h1>
-                        <Button
+                        <Button 
                             onClick={(e) => deleteFavourite(e, f.kedvenc_id)}
-                            className="deleteBtn"
+                            className="button2"
                             >
                             Törlés
                         </Button>
                     </div>
                 ))
             ) : (
-                <p>Nincsenek kedvencei.</p>
+                <p className="betu">Nincsenek kedvencei.</p>
             )}
         </div>
     </div>
