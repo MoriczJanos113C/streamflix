@@ -153,6 +153,18 @@ export function MoviePage() {
         }
     };
 
+    const deleteFilm = (e, id) => {
+        e.preventDefault();
+        axios.delete(`http://localhost:8080/movies/${movieID}`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        navigate("/");
+        window.location.reload();
+    };
+
+
       const velemenyCardStyle = {
         background: "#808080",
         color: "white",
@@ -193,7 +205,12 @@ export function MoviePage() {
             {movie.map((m) => (
                 <div className="" key={m.film_id} style={filmCardStyle}>
                     <h1>{m.film_neve}</h1>
-                    
+                    <Button
+                            onClick={(e) => deleteFilm(e, m.film_id)}
+                            className="deleteBtn"
+                            >
+                            Törlés
+                        </Button>
                     {/*...*/}
 
             {!isAdmin && (

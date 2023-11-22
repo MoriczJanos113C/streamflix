@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const DEFAULT_FORM_OBJECT = {
     film_neve: "",
-    film_hossz: "",
-    film_kategoria: ""
+    film_hossz: ""
 };
 
 
@@ -19,7 +18,6 @@ export function CreateMovie() {
      const navigate = useNavigate();
      const [nameError, setNameError] = useState("");
      const [lengthError, setlengthtError] = useState("");
-     const [categoryError, setCategoryError] = useState("");
  
      //validation for the form
      const checkValid = () => {
@@ -39,16 +37,6 @@ export function CreateMovie() {
         else {
             setlengthtError("");
         }
-
-         if (
-            !String(form.film_kategoria).match(/^[a-zA-z\u00C0-\u024F0-9 -]{4,}$/) &&
-            form.film_kategoria.trim() != ""
-        )
-            setCategoryError("Nem megfelelő film kategória");
-        else {
-            setCategoryError("");
-        }
-
      };
  
      //check that the validation is correct
@@ -64,10 +52,8 @@ export function CreateMovie() {
          if (
              nameError === "" &&
              lengthError === "" &&
-             categoryError === "" &&
              form.film_neve.trim() != "" &&
-             form.film_hossz.trim() != "" &&
-             form.film_kategoria.trim() != ""
+             form.film_hossz.trim() != ""
          ) {
              const formData = new FormData();
              formData.append("film_neve", form.film_neve);
@@ -132,16 +118,19 @@ export function CreateMovie() {
 
 
                          <Form.Group className="mb-3">
-                             <Form.Label>Film kategória</Form.Label>
-                             <Form.Control
-                                 className="input"
-                                 onChange={updateFormValue("film_kategoria")}
-                                 value={form.film_kategoria}
-                                 type="text"
-                                 placeholder="Ide írd a film kategóriáját"
-                             />
-                         </Form.Group>
-                         {categoryError && <p>{categoryError}</p>}
+                            <Form.Label>Film kategória</Form.Label>
+                            <Form.Control
+                                as="select"
+                                onChange={updateFormValue("film_kategoria")}
+                                value={form.film_kategoria}
+                            >
+                                <option value="fantasy">Fantasy</option>
+                                <option value="horror">Horror</option>
+                                <option value="vígjáték">Vígjáték</option>
+                                <option value="romantikus">Romantikus</option>
+                            </Form.Control>
+                        </Form.Group>
+                         
                          
                          
                          <Form.Group className="mb-3">

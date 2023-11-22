@@ -229,6 +229,41 @@ app.get("/kedvencek/:felh_id", (req, res) => {
     );
 });
 
+//kedvenc törlése
+app.delete("/kedvencek/:kedvenc_id", (req, res) => {
+    db.query(
+        `DELETE FROM kedvencek WHERE kedvenc_id = ${req.params.kedvenc_id}`,
+        (err, result) => {
+            if (result) {
+                res.send({
+                    message: "Deleted a favourite film",
+                });
+            } else {
+                res.send({
+                    message: "Not deleted any favourite film",
+                });
+            }
+        }
+    );
+});
+
+app.delete("/movies/:film_id", (req, res) => {
+    db.query(
+        `DELETE FROM filmek WHERE film_id = ${req.params.film_id}`,
+        (err, result) => {
+            if (result) {
+                res.send({
+                    message: "Deleted a film",
+                });
+            } else {
+                res.send({
+                    message: "Not deleted any film",
+                });
+            }
+        }
+    );
+});
+
 //create a movie
 app.post("/movies", upload.single("file"), (req, res) => {
     const film_neve = req.body.film_neve;
