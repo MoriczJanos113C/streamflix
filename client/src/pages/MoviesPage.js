@@ -45,10 +45,11 @@ export function MoviesPage() {
 
   return (
     <div className="background2">
-      <div style={{ marginBottom: "20px" }}>
+      <div>
         <label className="betu">
           Keresés film neve alapján:
           <input
+            className="in"
             type="text"
             value={searchTerm}
             onChange={handleSearch}
@@ -73,12 +74,12 @@ export function MoviesPage() {
         <div className="kartya" key={m.film_id}>
           <h1>{m.film_neve}</h1>
           <img src={`http://localhost:8080/${m.film_kep}`} alt="Film" />
-          <Link className="linkszin2" to={`/movies/${m.film_id}`}>
+          <Link className="linkszin3" to={`/movies/${m.film_id}`}>
             Leírás
           </Link>
 
           {isAdmin && (
-            <Link to={`/editMovie/${m.film_id}`}>
+            <Link to={`/editMovie/${m.film_id}`} className="linkszin4">
             Film szerkesztése
           </Link>
           )}

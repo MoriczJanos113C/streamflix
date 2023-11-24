@@ -2,6 +2,11 @@
     color: white;
 }
 
+.betu2{
+    color: white;
+    text-decoration: underline;
+}
+
 .linkszin{
     color: orange;
 }
@@ -10,14 +15,40 @@
     color: black;
 }
 
+.linkszin3{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.linkszin4{
+    color: green;
+}
+
 .button1{
     background-color: green;
     color: white; 
 }
 
+.button11{
+    background-color: green;
+    color: white; 
+    float: left;
+    margin-top: 8px;
+    width: 100px;
+}
+
+.button33{
+    background-color: grey;
+    color: white; 
+    float: right;
+}
+
 .button2{
     background-color: red;
-    color: white; 
+    color: white;
 }
 
 .button3{
@@ -30,18 +61,22 @@
     color: white;
     margin: 5px;
     padding: 5px;
+}
 
+.button5{
+    background-color: orange;
+    color: white;
 }
 
 .background{
     background-color: black;
-    min-height: 665px;
+    min-height: 680px;
     height: auto;
 }
 
 .background2{
     background-color: black;
-    min-height: 580px;
+    min-height: 590px;
     height: auto;
     padding: 40px;
 }
@@ -59,20 +94,97 @@
 
 .kartya{
     background: grey;
-    color: white;
-    padding: 40px;
+    color: white; 
     margin: 10px;
-    border-radius: 5px;
-    width: 200px;
+    border-radius: 25px;
+    width: 400px;
+    height: 400px;;
     display: inline-block;
+    border: 2px solid orange;
 }
 
 .kartya2{
     background: grey;
-    color: white;
-    padding: 40px;
+    color: white; 
     margin: 10px;
-    border-radius: 5px;
-    width: 300px;
+    border-radius: 25px;
+    width: 365px;
+    height: auto;
     display: inline-block;
+    border: 2px solid orange;
+}
+
+.kartya3{
+    background: white;
+    color: black; 
+    margin: 10px;
+    border-radius: 25px;
+    width: 300px;
+    height: auto;
+    display: inline-block;
+    border: 2px solid orange;
+}
+
+.vonal{
+    border-bottom: 3px solid white;
+}
+
+.in{
+    width: 200px;
+    height: 20px;
+    border: 3px solid orange;
+    border-radius: 5px;
+    padding: 2px;
+    margin-left: 10px;
+}
+
+.in2{
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.igazitas1{
+    float: left;
+    margin-right: 23px;
+}
+
+.igazitas2{
+    float: left;
+    margin-right: 92px;
+}
+
+.igazitas3{
+    float: left;
+    margin-right: 89px;
+}
+
+.igazitas4{
+    float: left;
+    margin-right: 23px;
+}
+
+.igazitas5{
+    float: left;
+    margin-right: 89px;
+}
+
+.igazitas6{
+    float: left;
+    margin-right: 102px;
+}
+
+.igazitas7{
+    float: left;
+    margin-right: 49px;
+}
+
+.igazitas8{
+    float: left;
+    margin-right: 68px;
+}
+
+.igazitas9{
+    float: left;
+    margin-right: 15px;
 }

@@ -10,12 +10,11 @@ export function Header() {
     const isAdmin = useIsAdmin();
 
     return (
-        <Navbar className="navbar navbar-dark" expand="lg" bg="dark" variant="dark">
-        <div style={{ overflow: 'hidden'}}>
-<img src="images/img1.png" alt="" style={{float: 'left'}} height="30px"/>
-<img src="images/img1.png" alt="" style={{float: 'right'}} height="30px"/>
+        <Navbar className="navbar">
+        <div className="hidden">
 </div>
             <Container >
+            <img src="images/img1.png" alt="" className="image1" />
 
   
 
@@ -53,9 +52,8 @@ export function Header() {
 
                 
                   
-                
+<img src="images/img1.png" alt="" className="image2" />  
             </Container>
-          
         </Navbar>
     );
 }

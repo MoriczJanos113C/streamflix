@@ -179,81 +179,66 @@ export function MoviePage() {
         }
     };
 
-    const velemenyCardStyle2 = {
-        color: "white",
-    };
-
-    const filmCardStyle = {
-        background: "#808080",
-        color: "white",
-        padding: "10px",
-        margin: "10px",
-        borderRadius: "5px",
-        width: "300px",
-        display: "inline-block",
-    }; 
-
-    const narancs = {
-        color: 'orange',
-      };
-
     return (
         <div className="background">
             {movie.map((m) => (
-                <div className="" key={m.film_id} style={filmCardStyle}>
-                    <h1>{m.film_neve}</h1>
+                <div className="" key={m.film_id}>
+                    <h1 className="betu2">{m.film_neve}</h1>
+                    <h2 className="betu"> {m.film_hossz} perc</h2>
+                    <img src={`http://localhost:8080/${m.film_kep}`} alt="Film" />
+                    <div>
                     {isAdmin && (
-                        <Button
+                        <Button 
                             onClick={(e) => deleteFilm(e, m.film_id)}
-                            className="deleteBtn"
+                            className="button2"
                             >
                             Törlés
                         </Button>
                     )}
-                    
+                    </div>
                     
 
             {!isAdmin && isLoggedIn && (
-                <div>
+                <div className="vonal">
                     <Button className="button1" onClick={addFavourites}>
                         Kedvencekhez adás
                     </Button>
                     <ToastContainer />
-                </div>
+                </div >
             )} 
                 </div>
             ))}
             <br></br><br></br><br></br>
-    <div className="" >
+    <div  >
                 
     </div>
-        <div className="kartya2">
+        <div>
         <Container>
                 {isLoggedIn && !isAdmin && (
-                    <Form onSubmit={addReview}>
+                    <Form className="kartya2" onSubmit={addReview}>
                         <h1>vélemény írása:</h1>
-                        <Form.Group className="mb-3">
+                        <Form.Group>
                             <Form.Label>Értékelés</Form.Label>
                             <Form.Control
-                                className="input"
+                                className="in2"
                                 onChange={updateFormValue("velemenyErtekeles")}
                                 value={form.velemenyErtekeles}
                                 placeholder="Értékelés pontszám szerint (1-5)"
                             />
                         </Form.Group>
                         {ratingError && <p>{ratingError}</p>}
-                        <Form.Group className="mb-3">
+                        <Form.Group>
                             <Form.Label>Film vélemény írás</Form.Label>
                             <Form.Control
                                 as="textarea"
-                                className="input"
+                                className="in2"
                                 onChange={updateFormValue("velemenyLeirasa")}
                                 value={form.velemenyLeirasa}
                                 placeholder="Leírás"
                             />
                         </Form.Group>
                         {descriptionError && <p>{descriptionError}</p>}
-                        <Button className="reviewBtn" type="submit" style={{ backgroundColor: '#FFA500', color: '#ffffff' }}>
+                        <Button className="button5" type="submit" >
                             Vélemény elküldése
                         </Button>
                     </Form>
@@ -265,12 +250,12 @@ export function MoviePage() {
     <div >
     {reviewByProduct.length > 0 ? (
         reviewByProduct.map((pR) => (
-        <div className="kartya" key={pR.velemeny_id}>
-            <h1 style={narancs}>{pR.felhasznaloNeve}</h1>
+        <div className="kartya3" key={pR.velemeny_id}>
+            <h1> {pR.felhasznaloNeve}</h1>
             {isAdmin && (
             <Button
                 onClick={(e) => deleteReview(e, pR.velemeny_id)}
-                className="deleteBtn"
+                className="button2"
             >
                 Törlés
             </Button>

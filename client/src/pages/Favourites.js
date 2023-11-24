@@ -31,12 +31,14 @@ export function Favourites() {
 
     return (
         <div className="background">
-        <h1 className="betu">Kedvencei:</h1>
-        <div className="">
+        <h1 className="betu">Kedvenceid:</h1>
+        <div>
             {favourites.length > 0 ? (
                 favourites.map((f) => (
-                    <div className="kartya" key={f.kedvenc_id}>
-                        <h1>{f.film_neve}</h1>
+                    <div className="kartya2" key={f.kedvenc_id}>
+                        <h1 className="betu" >{f.film_neve} </h1>
+                        <div> <img src={`http://localhost:8080/${f.film_kep}`} alt="Film" ></img>
+                        </div>
                         <Button 
                             onClick={(e) => deleteFavourite(e, f.kedvenc_id)}
                             className="button2"
@@ -46,7 +48,7 @@ export function Favourites() {
                     </div>
                 ))
             ) : (
-                <p className="betu">Nincsenek kedvencei.</p>
+                <p className="betu">Nincsenek kedvenceid.</p>
             )}
         </div>
     </div>

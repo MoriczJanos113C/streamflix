@@ -3,7 +3,6 @@
 .navbar {
     background: orange;
     padding: 13px;
-    
 }
 
 .home,
@@ -11,9 +10,9 @@
 .link,
 .logOut {
     color: white;
-    text-decoration: none;
+    text-decoration:wavy;
     padding: 10px;
-    margin: 12px;
+    margin: 10px;
     border: 3px solid white;
     border-radius: 5px;
     transition: color 0.3s, background-color 0.3s;
@@ -21,7 +20,22 @@
 
 .home:hover,
 .link:hover,
+.favourites:hover,
 .logOut:hover {
-    color: white;
-    background-color: orange;
+    color: orange;
+    background-color: white;
+}
+
+.image1{
+    float: left;
+    height: 30px;
+}
+
+.image2{
+    float: right;
+    height: 30px;
+}
+
+.hidden{
+    overflow: hidden;
 }

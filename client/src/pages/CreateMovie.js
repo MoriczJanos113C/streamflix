@@ -4,6 +4,7 @@ import Axios from "axios";
 import React from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import "../components/kinezet.css";
 
 const DEFAULT_FORM_OBJECT = {
     film_neve: "",
@@ -67,16 +68,16 @@ export function CreateMovie() {
      };
  
      return (
-         <div className="">
-             <Row>
+         <div className="background">
+             <Row className="doboz">
                  <Col></Col>
                  <Col xs={6}>
-                     <h1 className="headLine">Új film hozzáadása</h1>
+                     <h1 >Új film hozzáadása</h1>
                      <Form onSubmit={createMovie}>
-                         <Form.Group className="mb-3">
-                             <Form.Label>Név</Form.Label>
+                         <Form.Group>
+                             <Form.Label className="igazitas6">Név</Form.Label>
                              <Form.Control
-                                 className="input"
+                                 className="in2"
                                  onChange={updateFormValue("film_neve")}
                                  value={form.film_neve}
                                  type="name"
@@ -84,10 +85,10 @@ export function CreateMovie() {
                              />
                          </Form.Group>
 
-                         <Form.Group className="mb-3">
-                             <Form.Label>Film hossza</Form.Label>
+                         <Form.Group>
+                             <Form.Label className="igazitas7">Film hossza</Form.Label>
                              <Form.Control
-                                 className="input"
+                                 className="in2"
                                  onChange={updateFormValue("film_hossz")}
                                  value={form.film_hossz}
                                  type="number"
@@ -95,8 +96,8 @@ export function CreateMovie() {
                              />
                          </Form.Group>
 
-                         <Form.Group className="mb-3">
-                            <Form.Label>Film kategória</Form.Label>
+                         <Form.Group>
+                            <Form.Label className="igazitas8">Film kategória</Form.Label>
                             <Form.Control
                                 as="select"
                                 onChange={updateFormValue("film_kategoria")}
@@ -111,15 +112,14 @@ export function CreateMovie() {
                          
                          
                          
-                         <Form.Group className="mb-3">
-                             <Form.Label>Kép</Form.Label>
+                         <Form.Group>
+                             <Form.Label className="igazitas9">Kép</Form.Label>
                              <Form.Control
-                                 className="input"
                                  onChange={updateFormFileValue("file")}
                                  type="file"
                              />
                          </Form.Group>
-                         <Button className="btn" type="submit">
+                         <Button className="button1" type="submit">
                              Új film felvétele
                          </Button>
                      </Form>

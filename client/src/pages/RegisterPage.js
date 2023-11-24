@@ -110,10 +110,10 @@ export function RegisterPage() {
                     <Col xs={6}>
                         <h1 className="betu">Regisztráció</h1>
                         <Form onSubmit={registerUser}>
-                            <Form.Group className="mb-3">
-                                <Form.Label >Felhasználónév</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="igazitas1" >Felhasználónév</Form.Label>
                                 <Form.Control
-                                    className="input"
+                                    className="in2"
                                     onChange={updateFormValue("felhasznalonev")}
                                     value={form.felhasznalonev}
                                     type="text"
@@ -122,10 +122,10 @@ export function RegisterPage() {
                             </Form.Group>
 
                             {usernameError && <p>{usernameError}</p>}
-                            <Form.Group className="mb-3">
-                                <Form.Label >Email</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="igazitas2" >Email</Form.Label>
                                 <Form.Control
-                                    className="input"
+                                    className="in2"
                                     onChange={updateFormValue("email")}
                                     value={form.email}
                                     type="email"
@@ -134,10 +134,10 @@ export function RegisterPage() {
                             </Form.Group>
 
                             {emailError && <p>{emailError}</p>}
-                            <Form.Group className="mb-3">
-                                <Form.Label >Jelszó</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="igazitas3" >Jelszó</Form.Label>
                                 <Form.Control
-                                    className="input"
+                                    className="in2"
                                     onChange={updateFormValue("jelszo")}
                                     value={form.jelszo}
                                     type="password"

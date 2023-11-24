@@ -52,14 +52,14 @@ export function LoginPage() {
             <Row className="doboz">
                 <Col></Col>
                 <Col xs={6}>
-                    <h1 className="headLine">Bejelentkezés</h1>
+                    <h1 >Bejelentkezés</h1>
                     <Form onSubmit={loginUser}>
-                        <Form.Group className="mb-3">
-                            <Form.Label htmlFor="felhasznalonev">
+                        <Form.Group>
+                            <Form.Label className="igazitas4">
                                 Felhasználónév
                             </Form.Label>
                             <Form.Control
-                                className="input"
+                                className="in2"
                                 id="felhasznalonev"
                                 onChange={updateFormValue("felhasznalonev")}
                                 value={form.felhasznalonev}
@@ -68,10 +68,10 @@ export function LoginPage() {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label htmlFor="jelszo">Jelszó</Form.Label>
+                        <Form.Group>
+                            <Form.Label className="igazitas5">Jelszó</Form.Label>
                             <Form.Control
-                                className="input"
+                                className="in2"
                                 id="jelszo"
                                 onChange={updateFormValue("jelszo")}
                                 value={form.jelszo}
