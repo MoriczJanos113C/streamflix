@@ -185,6 +185,7 @@ export function MoviePage() {
                 <div className="" key={m.film_id}>
                     <h1 className="betu2">{m.film_neve}</h1>
                     <h2 className="betu"> {m.film_hossz} perc</h2>
+                    <h2 className="betu"> Film kategória: {m.film_kategoria}</h2>
                     <img src={`http://localhost:8080/${m.film_kep}`} alt="Film" />
                     <div>
                     {isAdmin && (
