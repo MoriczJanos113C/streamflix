@@ -201,9 +201,9 @@ export function MoviePage() {
 
             {!isAdmin && isLoggedIn && (
                 <div className="vonal">
-                    <Button className="button1" onClick={addFavourites}>
-                        Kedvencekhez adás
-                    </Button>
+
+                    <img src="../images/kedvnec.png" alt="kedvenc" className="kedvenc" onClick={addFavourites}/>
+
                     <ToastContainer />
                 </div >
             )} 
@@ -217,11 +217,11 @@ export function MoviePage() {
         <Container>
                 {isLoggedIn && !isAdmin && (
                     <Form className="kartya2" onSubmit={addReview}>
-                        <h1>vélemény írása:</h1>
+                        <h1>Vélemény írása:</h1>
                         <Form.Group>
-                            <Form.Label>Értékelés</Form.Label>
+                            <Form.Label className="igazitas10" >Értékelés:</Form.Label>
                             <Form.Control
-                                className="in2"
+                                className="in3"
                                 onChange={updateFormValue("velemenyErtekeles")}
                                 value={form.velemenyErtekeles}
                                 placeholder="Értékelés pontszám szerint (1-5)"
@@ -229,13 +229,13 @@ export function MoviePage() {
                         </Form.Group>
                         {ratingError && <p>{ratingError}</p>}
                         <Form.Group>
-                            <Form.Label>Film vélemény írás</Form.Label>
+                            <Form.Label className="igazitas11" >Film vélemény írás:</Form.Label>
                             <Form.Control
                                 as="textarea"
-                                className="in2"
+                                className="in3"
                                 onChange={updateFormValue("velemenyLeirasa")}
                                 value={form.velemenyLeirasa}
-                                placeholder="Leírás"
+                                placeholder="Leírás..."
                             />
                         </Form.Group>
                         {descriptionError && <p>{descriptionError}</p>}

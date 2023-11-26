@@ -68,6 +68,12 @@
     color: white;
 }
 
+.kedvenc{
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+}
+
 .background{
     background-color: black;
     min-height: 680px;
@@ -144,6 +150,13 @@
     padding: 2px;
 }
 
+.in3{
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2px;
+    width: 195px;
+}
+
 .igazitas1{
     float: left;
     margin-right: 23px;
@@ -187,4 +200,14 @@
 .igazitas9{
     float: left;
     margin-right: 15px;
+}
+
+.igazitas10{
+    float: left;
+    margin-right: 96px;
+}
+
+.igazitas11{
+    float: left;
+    margin-right: 29px;
 }

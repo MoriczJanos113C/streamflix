@@ -3,10 +3,10 @@ import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useIsLoggedIn } from "../hooks/useIsLoggedIn";
 import { useIsAdmin } from "../hooks/useIsAdmin";
-import "./Header.css"; // Importáltam egy külső CSS fájlt a további testreszabásokhoz
+import "./Header.css";
 
 export function Header() {
-    const isLoggedIn = useIsLoggedIn(); // from hooks folder
+    const isLoggedIn = useIsLoggedIn();
     const isAdmin = useIsAdmin();
 
     return (
@@ -15,8 +15,6 @@ export function Header() {
 </div>
             <Container >
             <img src="images/img1.png" alt="" className="image1" />
-
-  
 
                 <Navbar.Brand>
                     <Link className="home" to="/">

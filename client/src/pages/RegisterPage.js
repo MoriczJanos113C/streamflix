@@ -117,7 +117,7 @@ export function RegisterPage() {
                                     onChange={updateFormValue("felhasznalonev")}
                                     value={form.felhasznalonev}
                                     type="text"
-                                    placeholder="A kívánt felhasználónév megadása"
+                                    placeholder="Felhasználónév megadása"
                                 />
                             </Form.Group>
 
@@ -129,7 +129,7 @@ export function RegisterPage() {
                                     onChange={updateFormValue("email")}
                                     value={form.email}
                                     type="email"
-                                    placeholder="A kívánt email megadása"
+                                    placeholder="E-mail megadása"
                                 />
                             </Form.Group>
 
@@ -141,7 +141,7 @@ export function RegisterPage() {
                                     onChange={updateFormValue("jelszo")}
                                     value={form.jelszo}
                                     type="password"
-                                    placeholder="A kívánt jelszó megadása"
+                                    placeholder="Jelszó megadása"
                                 />
                             </Form.Group>
 
