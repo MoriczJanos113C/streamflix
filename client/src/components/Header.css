@@ -2,6 +2,7 @@
 
 .navbar {
     background: orange;
+    height: auto;
     padding: 13px;
 }
 
